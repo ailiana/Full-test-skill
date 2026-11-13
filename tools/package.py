@@ -28,10 +28,12 @@ def main():
     plugin = [(p, 'full-test/skills/full-test/' + p.relative_to(skill).as_posix()) for p in files]
     plugin += [(ROOT / name, 'full-test/' + name) for name in
                ['plugin.json', '.codex-plugin/plugin.json', '.agents/plugins/marketplace.json',
-                'README.md', 'LICENSE', 'docs/SOURCES.md', 'docs/codex-plugin-guide.html', 'docs/codex-plugin-guide.pdf']]
+                'README.md', 'LICENSE', 'docs/SOURCES.md', 'docs/codex-plugin-guide.html', 'docs/codex-plugin-guide.pdf',
+                'docs/assets/add-marketplace-dialog.png', 'docs/assets/add-marketplace-dialog-annotated.png']]
     source_files = [ROOT / name for name in ['README.md', 'LICENSE', 'plugin.json',
                     '.codex-plugin/plugin.json', '.agents/plugins/marketplace.json', '.gitignore', '.gitattributes',
-                    'package.json', 'package-lock.json']]
+                    'package.json', 'package-lock.json', 'docs/assets/add-marketplace-dialog.png',
+                    'docs/assets/add-marketplace-dialog-annotated.png']]
     for directory, pattern in [('tools', '*.py'), ('tests', '*.py'), ('docs', '*.md'),
                                ('docs', '*.html'), ('docs', '*.pdf'), ('.github/workflows', '*.yml')]:
         source_files.extend((ROOT / directory).glob(pattern))

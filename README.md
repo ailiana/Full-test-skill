@@ -19,9 +19,34 @@
 
 本仓库同时提供标准 Skill 文件夹与插件清单。官方支持方式见 [Build skills](https://learn.chatgpt.com/docs/build-skills) 和 [Package your plugin](https://developers.openai.com/plugins/build/plugins)（核实日期：2026-11-13）。客户端可用入口受版本和工作区设置影响。
 
-完整步骤见 **[8 页 PDF 图文教程](docs/codex-plugin-guide.pdf)**，或下载 **[带复制按钮的 HTML 教程](docs/codex-plugin-guide.html)** 后用浏览器打开。涵盖 Git 链接集成、添加市场、没有 CLI / skill-installer 的备用方案、调用和更新排障。
+完整步骤见 **[PDF 图文教程](docs/codex-plugin-guide.pdf)**，或下载 **[带复制按钮的 HTML 教程](docs/codex-plugin-guide.html)** 后用浏览器打开。教程共 11 页，面向普通用户从设置入口开始，包含真实表单截图、字段填写、安装调用、没有 CLI / skill-installer 的备用方案，以及连接失败排障。
 
-### 方式一：Git 链接添加市场并安装插件
+### 方式一：在 Codex 图形界面添加 Git 市场（推荐）
+
+**没有 Codex CLI、没有 skill-installer，也可以使用这个方式。** 按当前客户端显示的文字操作；不同版本可能使用“插件仓库”或“插件市场”等标签。
+
+1. 点击 **设置**。
+2. 点击 **插件**。
+3. 点击 **添加插件仓库**或**添加插件市场**，打开添加表单。
+4. 填写以下内容：
+
+   | 字段 | 填写内容 |
+   |---|---|
+   | 来源 / Git 仓库地址 | `https://github.com/ailiana/Full-test-skill.git` |
+   | Git 引用 | `main` |
+   | 稀疏路径 | **留空**；表单里的 `plugins/codex` 是占位示例，不要填入 |
+
+5. 点击 **添加市场**，等待仓库获取完成。
+6. 在插件目录选择 **ailiana 插件市场**，找到 **Full Test**，点击安装并确认已启用。
+7. 打开**新聊天**，输入 `使用 full-test，根据这份 PRD 生成测试用例，先不执行。` 验证调用。
+
+![Codex 客户端添加插件市场表单，编号对应来源、Git 引用、稀疏路径和添加市场按钮](docs/assets/add-marketplace-dialog-annotated.png)
+
+读者提供的实际客户端截图，叠加编号说明。灰色占位提示不需要照填；不同版本的入口名称和位置可能略有差异。
+
+添加市场与安装插件是两个步骤：市场成功出现后，仍需安装其中的 Full Test。表单示例和完整界面说明见上方 PDF / HTML 图文教程。
+
+### 方式二：通过 CLI 添加 Git 市场并安装插件
 
 本仓库已包含 `.agents/plugins/marketplace.json`，市场名为 `ailiana-plugins`，插件名为 `full-test`。不需要 skill-installer：
 
@@ -33,7 +58,7 @@ codex plugin list --json
 
 重启桌面客户端，打开新聊天后调用 Full Test。也可以仅执行第一条，再到 Plugins Directory 选择“ailiana 插件市场”，打开 Full Test 详情并安装。添加市场和安装插件是两个步骤；支持的 CLI 可用 `codex plugin list --available --json` 查看待安装条目。
 
-### 方式二：让客户端安装仓库中的独立 Skill
+### 方式三：让客户端安装仓库中的独立 Skill
 
 在支持 Skill Installer 的客户端输入：
 
@@ -44,11 +69,17 @@ codex plugin list --json
 
 只需安装完整 `skills/full-test` 文件夹；脚本、参考和模板必须一起保留。手工安装可复制到项目的 `.agents/skills/full-test/`，或个人的 `~/.agents/skills/full-test/`。在 ChatGPT 桌面端 Skills 列表检查是否发现；未刷新时重启客户端。
 
-### 方式三：没有 CLI 或 skill-installer 时手动安装
+### 方式四：手动复制 Skill 或建立本地市场
 
 仅需要 Skill：通过 Git 或 Download ZIP 获取仓库，把完整 `skills/full-test/` 复制到业务项目的 `.agents/skills/full-test/`；新聊天使用 `$full-test`。不要只复制 SKILL.md，也不要把整个仓库误当作 Skill 文件夹。
 
 需要插件目录管理：把完整插件放到业务项目 `plugins/full-test/`，在项目 `.agents/plugins/marketplace.json` 中添加指向 `./plugins/full-test` 的条目，保留已有市场配置，重启客户端后安装。完整 JSON 与个人 Git URL 市场示例见图文教程。
+
+### Git 市场连接失败时
+
+如果添加市场出现 `OpenSSL SSL_read: Connection was reset, errno 10054`，先检查运行 Codex 的电脑能否通过 Git 正常访问 GitHub，以及 Git 是否使用了可用代理。Windows 系统代理与 Git 代理配置不一定一致；代理的协议、地址和端口应按你自己的软件配置填写。
+
+确认网络可用后重试，保留 TLS 证书校验。仍无法拉取时，可在 GitHub 选择 **Code → Download ZIP**，解压完整仓库后，把添加窗口的“来源”改为本地仓库根目录；Git 引用和稀疏路径留空。目录下应能直接找到 `.agents/plugins/marketplace.json` 与 `plugin.json`。本地来源的更新需重新同步源文件。
 
 ### 插件分发格式
 
