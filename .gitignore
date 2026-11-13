@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+.env
+.env.*
+!.env.example
+playwright/.auth/
+test-results/
+playwright-report/
+dist/
+.DS_Store

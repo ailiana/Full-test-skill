@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "base_url": "http://127.0.0.1:8765",
+  "timeout_seconds": 5,
+  "headers": {"Accept": "application/json"},
+  "cases": [
+    {"id": "API-001", "title": "健康接口返回可用状态", "priority": "P0", "method": "GET", "path": "/health", "expect": {"status": 200, "json": {"$.ok": true}}},
+    {"id": "API-002", "title": "列表包含合成演示数据", "priority": "P1", "method": "GET", "path": "/api/items", "expect": {"status": 200, "json": {"$.items[0].name": "demo-item"}}},
+    {"id": "API-003", "title": "不存在的资源返回明确错误", "priority": "P1", "method": "GET", "path": "/api/missing", "expect": {"status": 404, "json": {"$.error": "not_found"}}}
+  ]
+}

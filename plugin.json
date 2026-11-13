@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "full-test",
+  "version": "0.1.0",
+  "description": "需求生成用例、UI 冒烟、接口执行与证据驱动报告，适用于 ChatGPT 与 Codex。",
+  "author": {"name": "ailiana", "url": "https://github.com/ailiana"},
+  "repository": "https://github.com/ailiana/Full-test-skill",
+  "license": "MIT",
+  "keywords": ["testing", "qa", "skills", "playwright", "api-testing", "test-report"],
+  "extensions": {"com.openai": {"interface": {
+    "displayName": "Full Test · 全流程测试",
+    "shortDescription": "需求生成用例、UI 冒烟、接口测试与离线报告",
+    "developerName": "ailiana",
+    "defaultPrompt": ["使用 Full Test 为当前项目生成测试用例，执行 UI 冒烟和接口测试，并生成带证据的报告。"]
+  }}}
+}

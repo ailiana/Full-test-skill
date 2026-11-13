@@ -1,0 +1,8 @@
+{
+  "name": "full-test-skill-dev",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optional local browser verification for Full Test Skill",
+  "scripts": {"test:ui": "playwright test --config skills/full-test/assets/playwright.config.cjs"},
+  "devDependencies": {"@playwright/test": "1.65.0"}
+}

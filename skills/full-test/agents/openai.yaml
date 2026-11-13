@@ -1,0 +1,4 @@
+interface:
+  display_name: "Full Test · 全流程测试"
+  short_description: "需求生成测试用例，执行 UI 冒烟与接口检查，并生成带证据的离线测试报告"
+  default_prompt: "使用 $full-test 为当前项目设计用例，执行 UI 冒烟与接口测试，并生成带证据的报告。"
