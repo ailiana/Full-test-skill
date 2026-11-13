@@ -19,7 +19,21 @@
 
 本仓库同时提供标准 Skill 文件夹与插件清单。官方支持方式见 [Build skills](https://learn.chatgpt.com/docs/build-skills) 和 [Package your plugin](https://developers.openai.com/plugins/build/plugins)（核实日期：2026-11-13）。客户端可用入口受版本和工作区设置影响。
 
-### 方式一：让客户端安装仓库中的 Skill
+完整步骤见 **[8 页 PDF 图文教程](docs/codex-plugin-guide.pdf)**，或下载 **[带复制按钮的 HTML 教程](docs/codex-plugin-guide.html)** 后用浏览器打开。涵盖 Git 链接集成、添加市场、没有 CLI / skill-installer 的备用方案、调用和更新排障。
+
+### 方式一：Git 链接添加市场并安装插件
+
+本仓库已包含 `.agents/plugins/marketplace.json`，市场名为 `ailiana-plugins`，插件名为 `full-test`。不需要 skill-installer：
+
+```text
+codex plugin marketplace add https://github.com/ailiana/Full-test-skill.git --ref main
+codex plugin add full-test@ailiana-plugins
+codex plugin list --json
+```
+
+重启桌面客户端，打开新聊天后调用 Full Test。也可以仅执行第一条，再到 Plugins Directory 选择“ailiana 插件市场”，打开 Full Test 详情并安装。添加市场和安装插件是两个步骤；支持的 CLI 可用 `codex plugin list --available --json` 查看待安装条目。
+
+### 方式二：让客户端安装仓库中的独立 Skill
 
 在支持 Skill Installer 的客户端输入：
 
@@ -30,7 +44,13 @@
 
 只需安装完整 `skills/full-test` 文件夹；脚本、参考和模板必须一起保留。手工安装可复制到项目的 `.agents/skills/full-test/`，或个人的 `~/.agents/skills/full-test/`。在 ChatGPT 桌面端 Skills 列表检查是否发现；未刷新时重启客户端。
 
-### 方式二：以插件分发
+### 方式三：没有 CLI 或 skill-installer 时手动安装
+
+仅需要 Skill：通过 Git 或 Download ZIP 获取仓库，把完整 `skills/full-test/` 复制到业务项目的 `.agents/skills/full-test/`；新聊天使用 `$full-test`。不要只复制 SKILL.md，也不要把整个仓库误当作 Skill 文件夹。
+
+需要插件目录管理：把完整插件放到业务项目 `plugins/full-test/`，在项目 `.agents/plugins/marketplace.json` 中添加指向 `./plugins/full-test` 的条目，保留已有市场配置，重启客户端后安装。完整 JSON 与个人 Git URL 市场示例见图文教程。
+
+### 插件分发格式
 
 根目录 `plugin.json` 使用 Agent Plugins 标准，`.codex-plugin/plugin.json` 为兼容清单。无需 MCP 服务、API Key 或启动钩子。支持本地插件市场的客户端可以按官方指引将本仓库目录加入市场后安装；**GitHub 仓库可用不等于已经上架公共插件目录**。
 

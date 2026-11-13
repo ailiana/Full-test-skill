@@ -1,0 +1,20 @@
+{
+  "name": "ailiana-plugins",
+  "interface": {
+    "displayName": "ailiana 插件市场"
+  },
+  "plugins": [
+    {
+      "name": "full-test",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

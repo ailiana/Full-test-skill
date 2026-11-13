@@ -27,11 +27,13 @@ def main():
     standalone.append((ROOT / 'LICENSE', 'full-test/LICENSE'))
     plugin = [(p, 'full-test/skills/full-test/' + p.relative_to(skill).as_posix()) for p in files]
     plugin += [(ROOT / name, 'full-test/' + name) for name in
-               ['plugin.json', '.codex-plugin/plugin.json', 'README.md', 'LICENSE', 'docs/SOURCES.md']]
+               ['plugin.json', '.codex-plugin/plugin.json', '.agents/plugins/marketplace.json',
+                'README.md', 'LICENSE', 'docs/SOURCES.md', 'docs/codex-plugin-guide.html', 'docs/codex-plugin-guide.pdf']]
     source_files = [ROOT / name for name in ['README.md', 'LICENSE', 'plugin.json',
-                    '.codex-plugin/plugin.json', '.gitignore', '.gitattributes',
+                    '.codex-plugin/plugin.json', '.agents/plugins/marketplace.json', '.gitignore', '.gitattributes',
                     'package.json', 'package-lock.json']]
-    for directory, pattern in [('tools', '*.py'), ('tests', '*.py'), ('docs', '*.md'), ('.github/workflows', '*.yml')]:
+    for directory, pattern in [('tools', '*.py'), ('tests', '*.py'), ('docs', '*.md'),
+                               ('docs', '*.html'), ('docs', '*.pdf'), ('.github/workflows', '*.yml')]:
         source_files.extend((ROOT / directory).glob(pattern))
     source = [(p, 'Full-test-skill/' + p.relative_to(ROOT).as_posix()) for p in files + source_files]
     args.output_dir.mkdir(parents=True, exist_ok=True)
